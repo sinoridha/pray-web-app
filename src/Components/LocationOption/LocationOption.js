@@ -4,10 +4,14 @@ import './LocationOption.css';
 class LocationOption extends Component {
     render() {
         return (
-            <select className="selectLocation" onChange={(event) => {this.props.changeLoc(event)}}>
-                <option value="jakarta">Jakarta</option>
-                <option value="bandung">Bandung</option>
-            </select>
+            <div>
+                <span>Lokasi : </span>
+                <select className="selectLocation"  value={this.props.location} onChange={(event) => {this.props.changeLoc(event.target.value)}}>
+                    <option value="auto">Auto</option>
+                    <option value="jakarta" >Jakarta</option>
+                    <option value="bandung" >Bandung</option>
+                </select>
+            </div>
         );
     }
 }
