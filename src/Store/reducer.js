@@ -15,6 +15,12 @@ const reducer = (state = initialState, action) => {
     if (action.type === 'CHANGELOC') {
         return {
             ...state,
+            location: action.location
+        }
+    }
+    if (action.type === 'CHANGELOCANDTIMES') {
+        return {
+            ...state,
             times: action.times,
             location: action.location
         }

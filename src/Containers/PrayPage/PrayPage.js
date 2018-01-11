@@ -40,7 +40,7 @@ class PrayPage extends Component {
         };
       });
       this.props.dispatch({
-        type:'CHANGELOC',
+        type:'CHANGELOCANDTIMES',
         location: location,
         times : jadwal,
       });
@@ -48,10 +48,11 @@ class PrayPage extends Component {
 
     browserLocationHandler = () => {
       let geoPosition = [];
+      this.props.dispatch({type:'CHANGELOC',action:'auto'});
       const success = (pos) => {
         var crd = pos.coords;
         geoPosition = [crd.latitude, crd.longitude];
-        this.getPrayTimes(geoPosition);
+        this.getPrayTimes(geoPosition,'auto');
         this.props.dispatch({type:'DISPLAYTABLE'});
       }
       const error = (err) => {
@@ -73,9 +74,16 @@ class PrayPage extends Component {
       } else {
         displayTable = <div>Sedang mengambil data lokasi...</div>
       }
+
+      let title = null;
+      if (this.props.location == 'auto') {
+        title = <h1 class="mainTitle">Jadwal Shalat</h1>
+      } else {
+        title = <h1 class="mainTitle">Jadwal Shalat Kota {this.props.location}</h1>
+      }
       return (
           <div>
-              <h1>Jadwal Shalat Jakarta</h1>
+              {title}
               <LocationOption location={this.props.location} changeLoc={(event) => this.onChangeLocation(event)}/>
               {displayTable}
           </div>
